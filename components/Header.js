@@ -13,12 +13,14 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline';
+import { signOut, useSession } from 'next-auth/client';
 
 import HeaderIcon from '../components/HeaderIcon';
 
 function Header() {
+  const [session] = useSession();
   return (
-    <div className="sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md">
+    <div className="sticky top-0 z-50 bg-white flex items-center px-2 lg:px-5 shadow-md">
       <div className="flex items-center">
         <Image
           width={40}
@@ -47,8 +49,18 @@ function Header() {
         </div>
       </div>
       <div className="flex items-center sm:space-x-2 justify-end ">
-        {/* profile picture */}
-        <p className=" whitespace-nowrap font-semibold pr-3">Davis</p>
+        <Image
+          width={40}
+          height={40}
+          src={session.user.image}
+          layout="fixed"
+          alt="facebook"
+          className="rounded-full cursor-pointer"
+          onClick={signOut}
+        />
+        <p className=" whitespace-nowrap font-semibold pr-3">
+          {session.user.email}
+        </p>
         <ViewGridIcon className="icons" />
         <ChatIcon className="icons" />
         <BellIcon className="icons" />
