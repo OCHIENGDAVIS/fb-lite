@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
 
+import Header from '../components/Header';
+
 export default function Home() {
   return (
     <div>
@@ -9,7 +11,12 @@ export default function Home() {
         <meta name="description" content="facebook clone" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2 className="text-red-500">something bigger is about to lounch</h2>
+      <Header />
+      <main>
+        {/* sidebar */}
+        {/* feed */}
+        {/* widgets */}
+      </main>
     </div>
   );
 }
