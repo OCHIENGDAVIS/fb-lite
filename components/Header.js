@@ -58,7 +58,7 @@ function Header() {
           className="rounded-full cursor-pointer"
           onClick={signOut}
         />
-        <p className=" whitespace-nowrap font-semibold pr-3">
+        <p className=" whitespace-nowrap  font-semibold pr-3 hidden text-sm">
           {session.user.email}
         </p>
         <ViewGridIcon className="icons" />

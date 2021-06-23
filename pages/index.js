@@ -4,21 +4,23 @@ import { getSession } from 'next-auth/client';
 
 import Header from '../components/Header';
 import Login from '../components/Login';
+import SideBar from '../components/SideBar';
+import Feed from '../components/Feed';
 
 export default function Home({ session }) {
   if (!session) return <Login />;
 
   return (
-    <div>
+    <div className="h-screen bg-gray-100 overflow-hidden">
       <Head>
         <title>fb-lite</title>
         <meta name="description" content="facebook clone" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main>
-        {/* sidebar */}
-        {/* feed */}
+      <main className="flex">
+        <SideBar />
+        <Feed />
         {/* widgets */}
       </main>
     </div>
