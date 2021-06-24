@@ -15,7 +15,7 @@ function Post() {
             src={session.user.image}
           />
           <div>
-            <p clasName="font-medium">name</p>
+            <p className="font-medium">name</p>
             <p className="text-xs text-gray-400">time</p>
           </div>
         </div>

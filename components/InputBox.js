@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import firebase from 'firebase';
+import axios from 'axios';
 import { useSession } from 'next-auth/client';
 import { EmojiHappyIcon } from '@heroicons/react/outline';
 import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid';
-import { db, storage } from '../firebase';
 
 function InputBox() {
   const [error, setError] = useState('');
@@ -18,44 +17,20 @@ function InputBox() {
       message: inputRef.current.value,
       name: session.user.name,
       email: session.user.email,
-      image: session.user.image,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
-    try {
-      const doc = await db.collection('posts').add(data);
-      if (imageToPost) {
-        const uploadTask = storage
-          .ref(`posts/${doc.id}`)
-          .putString(imageToPost, 'data_url');
-        uploadTask.on(
-          'state_changed',
-          null,
-          (err) => console.log(err),
-          () => {
-            // when the upload completes
-            storage
-              .ref('posts')
-              .child(doc.id)
-              .getDownloadURL()
-              .then((url) => {
-                db.collection('posts').doc(doc.id).set(
-                  {
-                    postImage: url,
-                  },
-                  { merge: true }
-                );
-              });
-          }
-        );
-      }
+    if (imageToPost) {
+      data.image = imageToPost;
+    }
+    const res = await axios.post('/api/post', data);
+    if (res.statusText == 'OK' && res.status === 200) {
       inputRef.current.value = '';
-    } catch (err) {
-      setError(err);
+      setImageToPost(null);
+    } else {
+      setError('OOPS!, that did not work!');
     }
   };
   const [imageToPost, setImageToPost] = useState(null);
   const addImage = (e) => {
-    console.log(e.target.files[0]);
     const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
