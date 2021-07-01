@@ -1,14 +1,14 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { getSession } from 'next-auth/client';
-
+import axios from 'axios';
 import Header from '../components/Header';
 import Login from '../components/Login';
 import SideBar from '../components/SideBar';
 import Feed from '../components/Feed';
 import Widgets from '../components/Widgets';
 
-export default function Home({ session }) {
+export default function Home({ session, posts }) {
   if (!session) return <Login />;
 
   return (
@@ -21,7 +21,7 @@ export default function Home({ session }) {
       <Header />
       <main className="flex">
         <SideBar />
-        <Feed />
+        <Feed posts={posts} />
         <Widgets />
       </main>
     </div>
@@ -30,10 +30,12 @@ export default function Home({ session }) {
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
+  const res = await axios.get('http://localhost:3000/api/post');
 
   return {
     props: {
       session,
+      posts: res.data,
     },
   };
 };

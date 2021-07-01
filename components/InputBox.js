@@ -17,6 +17,7 @@ function InputBox() {
       message: inputRef.current.value,
       name: session.user.name,
       email: session.user.email,
+      user: session.user.id,
     };
     if (imageToPost) {
       data.image = imageToPost;

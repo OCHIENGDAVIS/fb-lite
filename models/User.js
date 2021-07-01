@@ -13,17 +13,17 @@ const UserSchema = new Schema(
     date: { type: Date, default: Date.now },
     posts: [
       {
-        id: mongoose.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Post',
       },
     ],
     friends: [
       {
-        id: mongoose.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         email: String,
       },
     ],
   },
-  { timestamp: true }
+  { timestamps: true }
 );
-mongoose.models.Post || mongoose.model('User', UserSchema);
+export default mongoose.models.User || model('User', UserSchema);

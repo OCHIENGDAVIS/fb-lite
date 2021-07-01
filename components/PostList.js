@@ -1,25 +1,10 @@
-import mongoose from 'mongoose';
 import Post from './Post';
 
-const PostModel = mongoose.model('Post');
-function PostList({ posts }) {
-  return (
-    <div>
-      <Post />
-      <Post />
-      <Post />
-    </div>
-  );
-}
-
-export async function getServerSideProps(context) {
-  const { req } = context;
-  console.error(req);
-  return {
-    props: {
-      posts: [],
-    },
-  };
-}
+const PostList = ({ posts }) => {
+  const renderPosts = posts.posts.map((post) => (
+    <Post key={post._id} post={post} />
+  ));
+  return <div>{renderPosts}</div>;
+};
 
 export default PostList;

@@ -8,7 +8,12 @@ const PostSchema = new Schema(
     likes: [],
     comments: [],
     shares: [],
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
-mongoose.models.Post || mongoose.model('Post', PostSchema);
+export default mongoose.models.Post || model('Post', PostSchema);

@@ -1,9 +1,12 @@
 import { useSession } from 'next-auth/client';
 import Image from 'next/image';
 import { ShareIcon, ChatAltIcon, ThumbUpIcon } from '@heroicons/react/outline';
+import moment from 'moment';
+import { DateTime } from 'luxon';
 
-function Post() {
+function Post({ post }) {
   const [session] = useSession();
+  console.log(post);
   return (
     <div className="flex flex-col">
       <div className="p-5 bg-white mt-5 roundend-t-2xl shadow-sm">
@@ -15,23 +18,18 @@ function Post() {
             src={session.user.image}
           />
           <div>
-            <p className="font-medium">name</p>
-            <p className="text-xs text-gray-400">time</p>
+            <p className="font-medium">{post.user.name}</p>
+            {/* <p className="text-xs text-gray-400">
+          
+            </p> */}
           </div>
         </div>
-        <p>
-          Lorem, ipsum dolor. Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Repudiandae ducimus ullam aliquid aspernatur
-          doloremque facere minima esse unde consectetur mollitia, excepturi,
-          enim distinctio, nihil quae aperiam! Laboriosam earum consequuntur
-          ipsum!
-        </p>
+        <p>{post.message}</p>
       </div>
       {/* check if an immage has a post before rendering */}
       {
         <div className="relative h-56 md:h-80 bg-white">
-          <h3>iage</h3>
-          <Image src={session.user.image} objectfit="cover" layout="fill" />
+          <img src={post.image} objectfit="cover" layout="fill" />
         </div>
       }
       {/* footer section of the post */}

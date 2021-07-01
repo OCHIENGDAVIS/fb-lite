@@ -52,14 +52,14 @@ function Header() {
         <Image
           width={40}
           height={40}
-          src={session.user.image}
+          src={session?.user?.image}
           layout="fixed"
           alt="facebook"
           className="rounded-full cursor-pointer"
           onClick={signOut}
         />
         <p className=" whitespace-nowrap  font-semibold pr-3 hidden text-sm">
-          {session.user.email}
+          {session?.user.email}
         </p>
         <ViewGridIcon className="icons" />
         <ChatIcon className="icons" />
