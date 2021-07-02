@@ -30,9 +30,11 @@ export default function Home({ session, posts }) {
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
-  const res = await axios.get('http://localhost:3000/api/post');
-
-  return {
+  const res = await axios.get(
+    'https://fb-lite-ef14cpcj0-ochiengdavis.vercel.app/api/post'
+  );
+  console.log(res.data);
+  https: return {
     props: {
       session,
       posts: res.data,
